@@ -12,9 +12,11 @@ const SearchBox = () => {
   };
 
   const clickSearch = e => {
-    axiosNutrix().get('/tamales?fields=item_name,item_id,brand_name,nf_calories,nf_total_fat')
+    const searchStr = userInput.replace(/ /g, '%20');
+    axiosNutrix().get(`/${searchStr}?fields=item_name,item_id,brand_name,nf_calories,nf_total_fat`)
       .then(res => {
         setSearchRes(res.data.hits)
+        setUserInput("")
       })
       .catch(err => console.log(err.message))
   }
